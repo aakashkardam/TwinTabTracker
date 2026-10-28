@@ -1,0 +1,39 @@
+.banner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+}
+
+.info {
+  background: var(--primary-soft);
+  color: var(--text);
+}
+
+.success {
+  background: var(--success-soft);
+  color: var(--text);
+}
+
+.warn {
+  background: var(--warn-soft);
+  color: var(--text);
+}
+
+.danger {
+  background: var(--danger-soft);
+  color: var(--text);
+}
+
+.body {
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
