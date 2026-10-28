@@ -1,0 +1,82 @@
+:global(html),
+:global(body),
+:global(#root) {
+  width: var(--popup-width);
+  min-width: var(--popup-width);
+  max-width: var(--popup-width);
+}
+
+.shell {
+  width: var(--popup-width);
+  min-height: 320px;
+  max-height: 560px;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px 8px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.headerActions {
+  display: flex;
+  gap: 4px;
+}
+
+.body {
+  display: grid;
+  gap: 10px;
+  padding: 0 14px 14px;
+  overflow: auto;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.stat {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.stat b {
+  display: block;
+  font-size: 20px;
+  letter-spacing: -0.04em;
+}
+
+.stat span {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions > * {
+  flex: 1;
+}
+
+.busy {
+  margin: 0;
+  color: var(--text-muted);
+}
