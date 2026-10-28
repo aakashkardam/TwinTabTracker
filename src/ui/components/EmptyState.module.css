@@ -1,0 +1,20 @@
+.wrap {
+  display: grid;
+  gap: 6px;
+  padding: 22px 14px;
+  text-align: center;
+  color: var(--text-muted);
+  background: var(--bg-muted);
+  border-radius: var(--radius);
+}
+
+.title {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.body {
+  margin: 0;
+  font-size: 13px;
+}

@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+package-lock.json
+*.png
+*.svg
+*.zip
+*.xpi
+*.crx
+playwright-report
+test-results
