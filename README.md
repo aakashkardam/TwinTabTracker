@@ -8,7 +8,7 @@
   Find the tabs you need. Eliminate unnecessary duplicates. Keep your browser under control.
 </p>
 
-TwinTabTracker is a local-first browser extension. It shows your open tabs, groups extra copies of the same URL, and lets you park pages you want later. It does not need an account, a server, or access to page content.
+TwinTabTracker is a local-first browser extension. It shows your open tabs, groups extra copies of the same URL, and lets you park pages you want later. It does not need an account, a server, or access to page content. Independent project — no company, no analytics.
 
 <p align="center">
   <img src="docs/screenshots/popup.png" alt="Toolbar popup with search, park, cleanup, and parked tabs" width="400">
@@ -83,7 +83,7 @@ All product features run locally. TwinTabTracker does not use host permissions o
 | Browser | Status |
 | --- | --- |
 | Google Chrome and other Chromium browsers | Packaged and tested |
-| Firefox | Packaged; not yet verified in Firefox |
+| Firefox | Packaged and verified |
 | Safari | Not packaged |
 
 ## Development
