@@ -10,7 +10,7 @@
 
 ## Next
 
-1. Export 1280×800 Chrome Web Store screenshots from the README captures.
+1. Capture real toolbar-popup and dashboard screenshots for the store listing.
 2. Verify `dist/firefox` in a real Firefox window.
 3. Publish a Chrome Web Store listing.
 4. Safari packaging only after Chromium and Firefox stay green.
