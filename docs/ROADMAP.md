@@ -1,19 +1,11 @@
 # Roadmap
 
-## Completed
+The Chromium and Firefox packages are ready to load from `dist/`. Safari is not packaged.
 
-- Chromium Manifest V3 MVP
-- Duplicate detection, safe cleanup, search, and parked collections
-- One-click park and restore from the popup, dashboard, tab menu, and keyboard shortcut
-- First-run tour, export/import, and local settings
-- Public GitHub documentation, MIT license, and CI
+Later work, only after the current product stays green:
 
-## Next
-
-1. Export 1280×800 Chrome Web Store screenshots from the README captures.
-2. Verify `dist/firefox` in a real Firefox window.
-3. Publish a Chrome Web Store listing.
-4. Safari packaging only after Chromium and Firefox stay green.
+- Safari, with real Xcode / Safari Web Extension tooling
+- Session snapshots, reminders, and cloud-sync research
 
 ## Known limitations
 
