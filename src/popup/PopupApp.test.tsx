@@ -34,6 +34,27 @@ describe('popup', () => {
     });
   });
 
+  it('does not dump the current tab title into the park helper', async () => {
+    const browser = new MemoryBrowser();
+    browser.tabs = [
+      {
+        id: 1,
+        windowId: 1,
+        index: 0,
+        title: 'aakashkardam/TwinTabTracker: Find the tabs you need. Eliminate unnecessary duplicates.',
+        url: 'https://github.com/aakashkardam/TwinTabTracker',
+        active: true,
+      },
+    ];
+    setBrowserAdapterForTests(browser);
+    render(<PopupApp />);
+    await userEvent.click(screen.getByRole('button', { name: 'Skip' }));
+    expect(await screen.findByText('Saves the URL locally and closes this tab.')).toBeInTheDocument();
+    expect(
+      screen.queryByText(/Parks “aakashkardam\/TwinTabTracker/i),
+    ).not.toBeInTheDocument();
+  });
+
   it('shows an empty duplicate state when all URLs are unique', async () => {
     const browser = new MemoryBrowser();
     browser.tabs = [
