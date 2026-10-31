@@ -1,8 +1,26 @@
-# TwinTabTracker
+<p align="center">
+  <img src="docs/store/icon512.png" width="96" alt="TwinTabTracker">
+</p>
 
-Find the tabs you need. Eliminate unnecessary duplicates. Keep your browser under control.
+<h1 align="center">TwinTabTracker</h1>
+
+<p align="center">
+  Find the tabs you need. Eliminate unnecessary duplicates. Keep your browser under control.
+</p>
 
 TwinTabTracker is a local-first browser extension. It shows your open tabs, groups extra copies of the same URL, and lets you park pages you want later. It does not need an account, a server, or access to page content.
+
+<p align="center">
+  <img src="docs/screenshots/popup.png" alt="Toolbar popup with search, park, cleanup, and parked tabs" width="400">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/dashboard-overview.png" alt="Dashboard overview with open tabs, extras, domains, and parked counts" width="880">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/dashboard-parked.png" alt="Parked tabs stored locally and ready to reopen" width="880">
+</p>
 
 ## What it does
 
@@ -15,16 +33,26 @@ TwinTabTracker is a local-first browser extension. It shows your open tabs, grou
 
 ## Install
 
-A store listing is not published yet. Until then, load the Chromium package locally:
+A store listing is not published yet. Until then, load the package locally.
+
+**Chrome**
 
 1. `npm install`
 2. `npm run build:chrome`
-3. In Chrome, open `chrome://extensions`
+3. Open `chrome://extensions`
 4. Enable **Developer mode**
 5. Click **Load unpacked** and choose the `dist/chrome` folder
 6. Pin TwinTabTracker to the toolbar
 
-Load `dist/chrome` or `dist/firefox`, never the repository root.
+**Firefox**
+
+1. `npm run build:firefox`
+2. Open `about:debugging#/runtime/this-firefox`
+3. Click **Load Temporary Add-on…**
+4. Choose `dist/firefox/manifest.json`
+5. Click the puzzle-piece toolbar button and pin TwinTabTracker
+
+Load `dist/chrome` or `dist/firefox`, never the repository root. After a rebuild, click **Reload** on the extension card. Firefox temporary add-ons are cleared when Firefox quits; load `manifest.json` again after a restart.
 
 ## How to use it
 
