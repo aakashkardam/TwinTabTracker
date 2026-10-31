@@ -155,7 +155,7 @@ class WebExtensionAdapter implements BrowserAdapter {
     await this.api.sessions.restore(sessionId);
   }
 
-  async setBadge(text: string, color = '#0F6E6A'): Promise<void> {
+  async setBadge(text: string, color = '#B42318'): Promise<void> {
     const action = this.api.action ?? this.api.browserAction;
     if (!action?.setBadgeText) {
       return;

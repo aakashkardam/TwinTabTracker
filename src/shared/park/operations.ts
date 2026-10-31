@@ -2,12 +2,17 @@ import { createId } from '../id';
 import type { InventoryTab, ParkedEntry, PersistedState, TabCollection } from '../types';
 
 export const INBOX_COLLECTION_ID = 'inbox';
+export const MAX_COLLECTION_NAME_LENGTH = 80;
+
+export function normalizeCollectionName(name: string, fallback = 'Untitled collection'): string {
+  const trimmed = name.trim().slice(0, MAX_COLLECTION_NAME_LENGTH);
+  return trimmed || fallback.slice(0, MAX_COLLECTION_NAME_LENGTH);
+}
 
 export function createCollection(name: string, now = Date.now()): TabCollection {
-  const trimmed = name.trim() || 'Untitled collection';
   return {
     id: createId('col'),
-    name: trimmed,
+    name: normalizeCollectionName(name),
     createdAt: now,
     updatedAt: now,
   };
@@ -19,7 +24,7 @@ export function renameCollection(
   name: string,
   now = Date.now(),
 ): PersistedState {
-  const trimmed = name.trim();
+  const trimmed = normalizeCollectionName(name, '');
   return {
     ...state,
     collections: state.collections.map((collection) =>
@@ -67,10 +72,14 @@ export function parkTabs(
       (entry) => entry.collectionId === targetCollection && sameParkedUrl(entry.url, url),
     );
     if (duplicate) {
-      duplicate.title = tab.title ?? duplicate.title;
-      duplicate.favIconUrl = tab.favIconUrl ?? duplicate.favIconUrl;
-      duplicate.parkedAt = now;
-      duplicate.sourceWindowId = tab.windowId;
+      const index = nextEntries.indexOf(duplicate);
+      nextEntries[index] = {
+        ...duplicate,
+        title: tab.title ?? duplicate.title,
+        favIconUrl: tab.favIconUrl ?? duplicate.favIconUrl,
+        parkedAt: now,
+        sourceWindowId: tab.windowId,
+      };
       continue;
     }
     nextEntries.unshift({

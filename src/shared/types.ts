@@ -5,6 +5,7 @@ export type TabLoadStatus = 'loading' | 'complete' | 'unloaded' | 'unknown';
 export type MatchMode = 'exact' | 'smart';
 export type DuplicateNoticeMode = 'off' | 'badge' | 'banner';
 export type ThemePreference = 'system' | 'light' | 'dark';
+export type ColorAccent = 'teal' | 'slate' | 'indigo';
 export type DashboardView =
   | 'overview'
   | 'duplicates'
@@ -13,7 +14,8 @@ export type DashboardView =
   | 'collections'
   | 'settings';
 export type TabSortKey = 'title' | 'domain' | 'window' | 'url';
-export type TabFilterKey = 'all' | 'pinned' | 'active' | 'duplicated' | 'restricted';
+export type TabFilterKey = 'all' | 'pinned' | 'active' | 'duplicated' | 'restricted' | 'stale';
+export type StaleReason = 'discarded' | 'unloaded' | 'inactive';
 
 export interface InventoryTab {
   id: TabId;
@@ -32,6 +34,7 @@ export interface InventoryTab {
   status: TabLoadStatus;
   groupId: number | null;
   restricted: boolean;
+  lastAccessed: number | null;
   observedAt: number;
 }
 
@@ -77,9 +80,11 @@ export interface AppSettings {
   protectLastTabInWindow: boolean;
   duplicateNotice: DuplicateNoticeMode;
   theme: ThemePreference;
+  accent: ColorAccent;
   cleanupHistoryLimit: number;
   deleteParkedAfterRestore: boolean;
   defaultDashboardView: DashboardView;
+  onboardingCompleted: boolean;
 }
 
 export type SkipReason =

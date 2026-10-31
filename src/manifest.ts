@@ -30,7 +30,13 @@ export function buildManifest(browser: BrowserTarget) {
       open_in_tab: true,
     },
     background,
-    permissions: ['tabs', 'storage', 'sessions'],
+    permissions: ['tabs', 'storage', 'sessions', 'contextMenus'],
+    content_security_policy: {
+      extension_pages:
+        browser === 'firefox'
+          ? "script-src 'self'; object-src 'self'; img-src 'self' data: https:;"
+          : "script-src 'self'; object-src 'self'; img-src 'self' data: https: chrome:;",
+    },
     commands: {
       _execute_action: {
         suggested_key: {
@@ -43,6 +49,12 @@ export function buildManifest(browser: BrowserTarget) {
           default: 'Alt+Shift+T',
         },
         description: 'Open TwinTabTracker dashboard',
+      },
+      'park-current-tab': {
+        suggested_key: {
+          default: 'Alt+Shift+P',
+        },
+        description: 'Park the current tab',
       },
     },
     ...(browser === 'firefox'

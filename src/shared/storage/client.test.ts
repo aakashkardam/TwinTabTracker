@@ -42,4 +42,16 @@ describe('storage client', () => {
     expect(next.cleanupHistory).toHaveLength(1);
     expect(next.cleanupHistory[0]?.id).toBe('cleanup-2');
   });
+
+  it('serializes overlapping updates so later writes keep earlier mutations', async () => {
+    const browser = new MemoryBrowser();
+    const client = new StorageClient(browser);
+    await Promise.all([
+      client.update((state) => ({ ...state, settings: { ...state.settings, theme: 'dark' } })),
+      client.update((state) => ({ ...state, settings: { ...state.settings, matchMode: 'smart' } })),
+    ]);
+    const next = await client.read();
+    expect(next.settings.theme).toBe('dark');
+    expect(next.settings.matchMode).toBe('smart');
+  });
 });

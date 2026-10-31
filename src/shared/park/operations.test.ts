@@ -29,6 +29,19 @@ describe('parked tabs and collections', () => {
     expect(state.parkedEntries[0]?.collectionId).toBe('inbox');
   });
 
+  it('does not mutate the previous parked entry when updating a duplicate URL', () => {
+    const first = parkTabs(emptyState(), [tab({ id: 1, url: 'https://example.com/a', title: 'A' })], 'inbox', 1);
+    const previous = first.parkedEntries[0];
+    const second = parkTabs(first, [tab({ id: 2, url: 'https://example.com/a', title: 'A2' })], 'inbox', 2);
+    expect(previous?.title).toBe('A');
+    expect(second.parkedEntries[0]?.title).toBe('A2');
+  });
+
+  it('truncates long collection names', () => {
+    const created = createCollection('x'.repeat(200));
+    expect(created.name).toHaveLength(80);
+  });
+
   it('searches and deletes parked entries', () => {
     let state = parkTabs(emptyState(), [tab({ id: 1, url: 'https://example.com/docs', title: 'Docs' })], 'inbox');
     expect(searchParked(state.parkedEntries, 'docs')).toHaveLength(1);

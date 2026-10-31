@@ -55,6 +55,11 @@ interface ChromeLike {
   commands?: {
     onCommand?: EventLike<(command: string) => void>;
   };
+  contextMenus?: {
+    create: (createProperties: Record<string, unknown>, callback?: () => void) => string | number;
+    removeAll: (callback?: () => void) => void;
+    onClicked?: EventLike<(info: { menuItemId: string | number }, tab?: unknown) => void>;
+  };
 }
 
 interface EventLike<T extends (...args: never[]) => void> {

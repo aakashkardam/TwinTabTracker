@@ -34,7 +34,8 @@ export function TabRow({
       {keep ? <span className={cx(styles.badge, styles.keep)}>Keep</span> : null}
       {tab.active ? <span className={cx(styles.badge, styles.active)}>Active</span> : null}
       {tab.pinned ? <span className={styles.badge}>Pinned</span> : null}
-      {onActivate && onToggle ? (
+      {tab.discarded ? <span className={styles.badge}>Sleeping</span> : null}
+      {onActivate && (onToggle || trailing) ? (
         <button type="button" className={styles.switch} onClick={() => onActivate(tab)}>
           Switch
         </button>
@@ -54,7 +55,7 @@ export function TabRow({
     </span>
   );
 
-  if (onActivate && !onToggle) {
+  if (onActivate && !onToggle && !trailing) {
     return (
       <button type="button" className={styles.row} onClick={() => onActivate(tab)}>
         <span className={styles.check} />

@@ -28,6 +28,7 @@ export function mapBrowserTab(raw: RawBrowserTab, observedAt = Date.now()): Inve
     status: mapStatus(raw.status),
     groupId: typeof raw.groupId === 'number' && raw.groupId >= 0 ? raw.groupId : null,
     restricted: isRestrictedUrl(url),
+    lastAccessed: typeof raw.lastAccessed === 'number' && raw.lastAccessed > 0 ? raw.lastAccessed : null,
     observedAt,
   };
 }

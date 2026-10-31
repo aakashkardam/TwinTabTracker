@@ -67,6 +67,10 @@ export function reduceInventory(tabs: InventoryTab[], event: InventoryEvent, now
             : typeof event.change.groupId === 'number' && event.change.groupId >= 0
               ? event.change.groupId
               : null,
+        lastAccessed:
+          typeof event.change.lastAccessed === 'number' && event.change.lastAccessed > 0
+            ? event.change.lastAccessed
+            : current.lastAccessed,
         observedAt: now,
       };
       merged.restricted = isRestrictedUrl(merged.url);
@@ -83,8 +87,23 @@ export function reduceInventory(tabs: InventoryTab[], event: InventoryEvent, now
         if (tab.id === event.tabId) {
           return { ...tab, windowId: event.windowId, index: event.toIndex, observedAt: now };
         }
-        if (tab.windowId !== event.windowId && tab.windowId !== current.windowId) {
+        if (current.windowId === event.windowId) {
+          if (tab.windowId !== event.windowId) {
+            return tab;
+          }
+          if (event.fromIndex < event.toIndex && tab.index > event.fromIndex && tab.index <= event.toIndex) {
+            return { ...tab, index: tab.index - 1 };
+          }
+          if (event.fromIndex > event.toIndex && tab.index >= event.toIndex && tab.index < event.fromIndex) {
+            return { ...tab, index: tab.index + 1 };
+          }
           return tab;
+        }
+        if (tab.windowId === current.windowId && tab.index > event.fromIndex) {
+          return { ...tab, index: tab.index - 1 };
+        }
+        if (tab.windowId === event.windowId && tab.index >= event.toIndex) {
+          return { ...tab, index: tab.index + 1 };
         }
         return tab;
       });
@@ -103,6 +122,7 @@ export function reduceInventory(tabs: InventoryTab[], event: InventoryEvent, now
           return {
             ...tab,
             active: tab.id === event.tabId,
+            lastAccessed: tab.id === event.tabId ? now : tab.lastAccessed,
             observedAt: tab.id === event.tabId ? now : tab.observedAt,
           };
         }),

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { setBrowserAdapterForTests } from '../shared/browser/runtime';
@@ -17,8 +17,21 @@ describe('popup', () => {
     render(<PopupApp />);
     expect(await screen.findByText('TwinTabTracker')).toBeInTheDocument();
     expect(await screen.findByText('Duplicates')).toBeInTheDocument();
+    expect(await screen.findByRole('button', { name: 'Park this tab' })).toBeInTheDocument();
     await userEvent.type(screen.getByLabelText('Search open tabs'), 'other');
     expect(await screen.findByText('Other')).toBeInTheDocument();
+  });
+
+  it('can skip the first-run tour', async () => {
+    const browser = new MemoryBrowser();
+    browser.tabs = [{ id: 1, windowId: 1, index: 0, title: 'One', url: 'https://example.com/1', active: true }];
+    setBrowserAdapterForTests(browser);
+    render(<PopupApp />);
+    expect(await screen.findByLabelText('First-run tour')).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Skip' }));
+    await waitFor(() => {
+      expect(screen.queryByLabelText('First-run tour')).not.toBeInTheDocument();
+    });
   });
 
   it('shows an empty duplicate state when all URLs are unique', async () => {

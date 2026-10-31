@@ -2,6 +2,7 @@ import { getBrowserAdapter } from '../browser/adapter';
 import type { BrowserAdapter } from '../browser/types';
 import { log } from '../log';
 import type { AppSettings, CleanupOperation, PersistedState } from '../types';
+import { withStorageLock } from './lock';
 import { migratePersistedState, STORAGE_KEY } from './migrations';
 
 export class StorageClient {
@@ -22,15 +23,17 @@ export class StorageClient {
   }
 
   async update(mutator: (state: PersistedState) => PersistedState): Promise<PersistedState> {
-    const current = await this.read();
-    const next = mutator(current);
-    try {
-      await this.write(next);
-      return next;
-    } catch (error) {
-      log.warn('Failed to write extension storage.', error);
-      throw error;
-    }
+    return withStorageLock(async () => {
+      const current = await this.read();
+      const next = mutator(current);
+      try {
+        await this.write(next);
+        return next;
+      } catch (error) {
+        log.warn('Failed to write extension storage.', error);
+        throw error;
+      }
+    });
   }
 
   async saveSettings(settings: AppSettings): Promise<PersistedState> {

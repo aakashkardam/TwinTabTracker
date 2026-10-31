@@ -15,10 +15,16 @@ describe('dashboard', () => {
     setBrowserAdapterForTests(browser);
     render(<DashboardApp />);
     expect(await screen.findByRole('heading', { name: 'Overview' })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: /Open tabs/i }));
+    expect(await screen.findByRole('heading', { name: 'All tabs' })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Overview' }));
     await userEvent.click(screen.getByRole('button', { name: 'Duplicates' }));
     expect(await screen.findByRole('heading', { name: 'Duplicate tabs' })).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: 'Settings' }));
     expect(await screen.findByRole('heading', { name: 'Settings' })).toBeInTheDocument();
     expect(screen.getByText('Protect pinned tabs')).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Parked tabs' }));
+    expect(await screen.findByRole('heading', { name: 'Parked tabs' })).toBeInTheDocument();
+    expect(screen.getByText(/Click a parked tab to open it/i)).toBeInTheDocument();
   });
 });
