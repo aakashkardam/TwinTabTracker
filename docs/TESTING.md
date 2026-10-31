@@ -25,6 +25,9 @@ After `npm run build:chrome`:
 6. Search for a title and confirm the existing tab activates.
 7. Change a setting, close the popup, reopen, and confirm it persisted.
 8. Open the dashboard from the popup.
+9. Park the current tab from the popup and confirm it leaves the tab strip.
+10. Click the parked row in the popup and confirm the URL opens.
+11. Right-click a browser tab and confirm **Park this tab** appears.
 
 Firefox: load `dist/firefox` via `about:debugging` → This Firefox → Load Temporary Add-on → select `dist/firefox/manifest.json`.
 
@@ -32,7 +35,7 @@ Safari: not packaged.
 
 ## Automated results recorded in this environment
 
-- `npm test`: 14 files, 46 tests, all passed
+- `npm test`: 19 files, 61 tests, all passed
 - `npm run typecheck`: passed
 - `npm run lint`: passed with no errors
 - `npm run build:chrome`: passed; package in `dist/chrome`

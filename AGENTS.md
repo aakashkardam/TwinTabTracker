@@ -36,6 +36,7 @@ Load `dist/chrome` or `dist/firefox`, never the repository root. The original ro
 ## Current priorities
 
 1. Keep the Chromium MVP correct and tested.
-2. Verify real browsers before claiming support.
-3. Add Safari packaging only with real Xcode/Safari Web Extension tooling.
-4. Defer P2 features (session snapshots, reminders, cloud sync research) until the MVP stays green.
+2. Verify Firefox in a real browser before claiming support.
+3. Capture real toolbar-popup screenshots before store submission.
+4. Add Safari packaging only with real Xcode/Safari Web Extension tooling.
+5. Defer later features (session snapshots, reminders, cloud sync research) until the MVP stays green.

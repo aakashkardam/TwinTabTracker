@@ -22,6 +22,7 @@ Settings need to survive popup close and service-worker restart. Parked tabs are
 - `tabs`: required to see which tabs are open, find duplicates, switch to a tab, and close selected extras.
 - `storage`: required for local preferences and saved collections.
 - `sessions`: used only to restore recently closed tabs after cleanup when the API is available.
+- `contextMenus`: adds **Park this tab** to the tab and page menus.
 
 There are no host permissions, no content scripts, and no remote fonts, scripts, or stylesheets.
 
