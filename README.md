@@ -8,7 +8,7 @@
   Find the tabs you need. Eliminate unnecessary duplicates. Keep your browser under control.
 </p>
 
-TwinTabTracker is a local-first browser extension. It shows your open tabs, groups extra copies of the same URL, and lets you park pages you want later. It does not need an account, a server, or access to page content. Independent project — no company, no analytics.
+TwinTabTracker is a local-first browser extension. It shows your open tabs, groups extra copies of the same URL, and lets you park pages you want later. It does not need an account, a server, or access to page content.
 
 <p align="center">
   <img src="docs/screenshots/popup.png" alt="Toolbar popup with search, park, cleanup, and parked tabs" width="400">
@@ -21,6 +21,10 @@ TwinTabTracker is a local-first browser extension. It shows your open tabs, grou
 <p align="center">
   <img src="docs/screenshots/dashboard-parked.png" alt="Parked tabs stored locally and ready to reopen" width="880">
 </p>
+
+## Why it exists
+
+I always had too many tabs open. TwinTabTracker started as a personal project: find the one I need, park the rest, and close extra copies. I built it with [Cursor](https://cursor.com) — a laid-back, vibe-coded tool that stays on this machine. No company, no account, no analytics.
 
 ## What it does
 
