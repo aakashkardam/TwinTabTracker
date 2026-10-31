@@ -1,19 +1,23 @@
 :global(html) {
   width: var(--popup-width);
+  height: auto;
+  min-height: 0;
   overflow: hidden;
 }
 
 :global(body),
 :global(#root) {
-  width: 100%;
-  max-width: 100%;
+  width: var(--popup-width);
+  max-width: var(--popup-width);
+  height: auto;
+  min-height: 0;
   overflow: hidden;
 }
 
 .shell {
   width: 100%;
   min-width: 0;
-  min-height: 320px;
+  min-height: 0;
   max-height: 560px;
   display: flex;
   flex-direction: column;
@@ -50,7 +54,6 @@
   padding: 0 14px 14px;
   overflow-x: hidden;
   overflow-y: auto;
-  scrollbar-gutter: stable;
 }
 
 .stats {
@@ -125,4 +128,8 @@ button.stat:focus-visible {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--bg-elevated);
+}
+
+.empty {
+  padding: 12px 10px;
 }

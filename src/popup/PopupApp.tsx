@@ -228,9 +228,11 @@ export function PopupApp() {
         ) : null}
 
         {inventory.tabs.length === 0 && !inventory.loading ? (
-          <EmptyState title="No tabs found">The browser did not report any open tabs.</EmptyState>
+          <EmptyState className={styles.empty} title="No tabs found">
+            The browser did not report any open tabs.
+          </EmptyState>
         ) : inventory.counts.extraTabs === 0 ? (
-          <EmptyState title="No duplicates right now">
+          <EmptyState className={styles.empty} title="No duplicates right now">
             Extra copies of the same URL will show up here for one-click cleanup.
           </EmptyState>
         ) : (
