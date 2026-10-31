@@ -20,4 +20,12 @@ describe('grouping and sorting', () => {
     expect(sortTabs(tabs, 'title')[0]?.title).toBe('Alpha');
     expect(filterTabs(tabs, 'pinned', new Set()).map((item) => item.id)).toEqual([1]);
   });
+
+  it('filters possibly unused tabs', () => {
+    const stale = [
+      tab({ id: 8, discarded: true, active: false }),
+      tab({ id: 9, discarded: false, active: true }),
+    ];
+    expect(filterTabs(stale, 'stale', new Set()).map((item) => item.id)).toEqual([8]);
+  });
 });

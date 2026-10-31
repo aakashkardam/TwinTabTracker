@@ -11,7 +11,7 @@
 - `src/shared/search/` — in-memory title/host/URL filtering.
 - `src/shared/park/` — parked entries and collections.
 - `src/shared/storage/` — versioned local storage and migrations.
-- `src/background/` — service worker: badge counts, duplicate notices, keyboard command to open the dashboard.
+- `src/background/` — service worker: badge counts, duplicate notices, park command, tab context menu.
 - `src/popup/` — compact popup UI.
 - `src/dashboard/` — full-page UI.
 
@@ -41,12 +41,13 @@ The worker is event-driven and assumed to be short-lived. It:
 - refreshes the action badge after tab changes
 - records an optional duplicate-awareness notice
 - opens the dashboard from the `open-dashboard` command
+- parks the current tab from `park-current-tab` or the **Park this tab** context menu
 
 It does not keep the tab inventory as the source of truth. Popup and dashboard rebuild state from browser APIs. Persistent user data lives in `storage.local`.
 
 ## Storage
 
-Schema version `1` contains settings, parked entries, collections, cleanup history, and the latest duplicate notice. `migratePersistedState()` accepts missing, corrupt, or future-unknown records and returns a usable default state. Cleanup history is truncated to `settings.cleanupHistoryLimit`.
+Schema version `1` contains settings, parked entries, collections, cleanup history, and the latest duplicate notice. `migratePersistedState()` accepts missing, corrupt, or future-unknown records and returns a usable default state. Cleanup history is truncated to `settings.cleanupHistoryLimit`. `StorageClient.update()` serializes writes with the Web Locks API when available, otherwise an in-process queue.
 
 Browser tab IDs are never treated as durable identifiers for parked entries.
 

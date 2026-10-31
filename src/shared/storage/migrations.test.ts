@@ -27,4 +27,17 @@ describe('storage migrations', () => {
     });
     expect(state.parkedEntries).toHaveLength(1);
   });
+
+  it('drops malformed cleanup history instead of trusting a shallow cast', () => {
+    const state = migratePersistedState({
+      version: 1,
+      cleanupHistory: [
+        { id: 'ok', targets: [{ tabId: 1, windowId: 1 }], closed: 'nope', skipped: [], failures: [] },
+        { notAnOperation: true },
+      ],
+    });
+    expect(state.cleanupHistory).toHaveLength(1);
+    expect(state.cleanupHistory[0]?.id).toBe('ok');
+    expect(state.cleanupHistory[0]?.closed).toEqual([]);
+  });
 });

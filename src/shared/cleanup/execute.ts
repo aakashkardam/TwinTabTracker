@@ -39,42 +39,50 @@ export async function executeCleanup(
     windowCounts.set(tab.windowId, (windowCounts.get(tab.windowId) ?? 0) + 1);
   }
 
-  for (const target of input.targets) {
-    if (keep.has(target.tabId)) {
-      skipped.push(skip(target.tabId, 'keep-tab'));
+  const inspected = await Promise.all(
+    input.targets.map(async (target) => {
+      if (keep.has(target.tabId)) {
+        return { target, live: null as InventoryTab | null, earlySkip: skip(target.tabId, 'keep-tab') };
+      }
+      const raw = await adapter.getTab(target.tabId);
+      if (!raw || raw.id == null) {
+        return { target, live: null as InventoryTab | null, earlySkip: skip(target.tabId, 'missing') };
+      }
+      return { target, live: mapBrowserTab(raw, now), earlySkip: null as CleanupSkip | null };
+    }),
+  );
+
+  for (const item of inspected) {
+    if (item.earlySkip || !item.live) {
+      skipped.push(item.earlySkip ?? skip(item.target.tabId, 'missing'));
       continue;
     }
-    const raw = await adapter.getTab(target.tabId);
-    if (!raw || raw.id == null) {
-      skipped.push(skip(target.tabId, 'missing'));
-      continue;
-    }
-    const live = mapBrowserTab(raw, now);
+    const live = item.live;
     if (!live.url || live.restricted) {
-      skipped.push(skip(target.tabId, 'restricted'));
+      skipped.push(skip(item.target.tabId, 'restricted'));
       continue;
     }
-    if (target.url && comparisonKey(live.url, options) !== comparisonKey(target.url, options)) {
-      skipped.push(skip(target.tabId, 'navigated', 'The tab changed since the preview.'));
+    if (item.target.url && comparisonKey(live.url, options) !== comparisonKey(item.target.url, options)) {
+      skipped.push(skip(item.target.tabId, 'navigated', 'The tab changed since the preview.'));
       continue;
     }
     if (input.settings.protectPinned && live.pinned) {
-      skipped.push(skip(target.tabId, 'protected-pinned'));
+      skipped.push(skip(item.target.tabId, 'protected-pinned'));
       continue;
     }
     if (input.settings.protectActive && live.active) {
-      skipped.push(skip(target.tabId, 'protected-active'));
+      skipped.push(skip(item.target.tabId, 'protected-active'));
       continue;
     }
     if (input.settings.protectLastTabInWindow) {
       const remaining = windowCounts.get(live.windowId) ?? 0;
       if (remaining <= 1) {
-        skipped.push(skip(target.tabId, 'protected-last-in-window'));
+        skipped.push(skip(item.target.tabId, 'protected-last-in-window'));
         continue;
       }
     }
     confirmed.push({
-      ...target,
+      ...item.target,
       url: live.url,
       title: live.title,
       windowId: live.windowId,

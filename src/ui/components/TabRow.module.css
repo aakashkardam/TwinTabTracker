@@ -75,8 +75,8 @@
 }
 
 .switch {
-  border: 0;
-  background: var(--primary-soft);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
   color: var(--text);
   border-radius: 999px;
   padding: 2px 8px;

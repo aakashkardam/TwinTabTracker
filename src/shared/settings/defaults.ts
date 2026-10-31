@@ -10,9 +10,11 @@ export const DEFAULT_SETTINGS: AppSettings = {
   protectLastTabInWindow: true,
   duplicateNotice: 'banner',
   theme: 'system',
+  accent: 'indigo',
   cleanupHistoryLimit: 20,
   deleteParkedAfterRestore: false,
   defaultDashboardView: 'overview',
+  onboardingCompleted: false,
 };
 
 export function mergeSettings(value: unknown): AppSettings {
@@ -55,6 +57,10 @@ export function mergeSettings(value: unknown): AppSettings {
       input.theme === 'light' || input.theme === 'dark' || input.theme === 'system'
         ? input.theme
         : DEFAULT_SETTINGS.theme,
+    accent:
+      input.accent === 'slate' || input.accent === 'indigo' || input.accent === 'teal'
+        ? input.accent
+        : DEFAULT_SETTINGS.accent,
     cleanupHistoryLimit: historyLimit,
     deleteParkedAfterRestore:
       typeof input.deleteParkedAfterRestore === 'boolean'
@@ -69,5 +75,9 @@ export function mergeSettings(value: unknown): AppSettings {
       input.defaultDashboardView === 'settings'
         ? input.defaultDashboardView
         : DEFAULT_SETTINGS.defaultDashboardView,
+    onboardingCompleted:
+      typeof input.onboardingCompleted === 'boolean'
+        ? input.onboardingCompleted
+        : DEFAULT_SETTINGS.onboardingCompleted,
   };
 }

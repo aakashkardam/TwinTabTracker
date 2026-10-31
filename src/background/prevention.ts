@@ -38,7 +38,13 @@ export async function handlePotentialDuplicate(raw: RawBrowserTab): Promise<void
   if (Date.now() - last < NOTICE_COOLDOWN_MS) {
     return;
   }
-  recentNotices.set(key, Date.now());
+  const now = Date.now();
+  recentNotices.set(key, now);
+  for (const [seenKey, seenAt] of recentNotices) {
+    if (now - seenAt > NOTICE_COOLDOWN_MS || recentNotices.size > 200) {
+      recentNotices.delete(seenKey);
+    }
+  }
 
   try {
     await storage.update((current) => ({

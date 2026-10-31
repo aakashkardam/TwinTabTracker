@@ -17,6 +17,7 @@ export interface RawBrowserTab {
   favIconUrl?: string;
   status?: string;
   groupId?: number;
+  lastAccessed?: number;
   mutedInfo?: RawMutedInfo;
 }
 

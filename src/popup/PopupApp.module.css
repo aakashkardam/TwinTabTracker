@@ -54,6 +54,13 @@
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 10px;
+  color: inherit;
+  text-align: left;
+}
+
+button.stat:hover,
+button.stat:focus-visible {
+  background: var(--bg-hover);
 }
 
 .stat b {
@@ -79,4 +86,27 @@
 .busy {
   margin: 0;
   color: var(--text-muted);
+}
+
+.parked {
+  display: grid;
+  gap: 8px;
+}
+
+.parkedHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.parkedHeader h2 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.parkedList {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
 }

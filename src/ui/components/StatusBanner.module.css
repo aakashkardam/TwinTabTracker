@@ -5,27 +5,22 @@
   gap: 10px;
   padding: 10px 12px;
   border-radius: var(--radius-sm);
-  border: 1px solid transparent;
+  border: 1px solid var(--border);
+  border-left-width: 3px;
+  background: var(--bg-elevated);
 }
 
-.info {
-  background: var(--primary-soft);
-  color: var(--text);
-}
-
+.info,
 .success {
-  background: var(--success-soft);
-  color: var(--text);
+  border-left-color: var(--primary);
 }
 
 .warn {
-  background: var(--warn-soft);
-  color: var(--text);
+  border-left-color: var(--warn);
 }
 
 .danger {
-  background: var(--danger-soft);
-  color: var(--text);
+  border-left-color: var(--danger);
 }
 
 .body {
@@ -34,6 +29,23 @@
 
 .actions {
   display: flex;
+  align-items: center;
   gap: 6px;
   flex-shrink: 0;
+}
+
+.dismiss {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.dismiss:hover {
+  background: var(--bg-hover);
+  color: var(--text);
 }

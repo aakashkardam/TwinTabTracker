@@ -6,11 +6,12 @@ TwinTabTracker helps people find open tabs, notice extra copies of the same URL,
 
 ## User workflows
 
-1. Open the popup, see counts, search, or clean eligible duplicates.
-2. Open the dashboard for grouped review, filters, settings, and parked collections.
-3. Switch to an existing tab instead of creating another copy.
-4. Park selected tabs into a named collection and restore them later.
-5. Change matching and protection rules in Settings.
+1. Open the popup, see counts, search, park the current tab, or clean eligible duplicates.
+2. Click a parked tab in the popup to open it again.
+3. Open the dashboard for grouped review, filters, unused-tab insights, settings, and parked collections.
+4. Switch to an existing tab instead of creating another copy.
+5. Park a tab from the popup, All tabs, the tab context menu, or `Alt+Shift+P`.
+6. Change matching and protection rules in Settings.
 
 ## Feature definitions
 
@@ -38,7 +39,11 @@ Optional. When a newly completed navigation matches an open tab, show a popup ba
 
 ### Parked tabs
 
-Local saved URLs with collections, search, restore, rename, and delete. Restoring a URL does not guarantee the live page is unchanged.
+Parking saves a URL locally and closes the live tab when it is safe to do so. It is not a bookmark: the tab leaves the strip. Click a parked row to open the URL. Collections, search, rename, delete, and JSON export/import are available in the dashboard. Restoring a URL does not recover page state.
+
+### Unused-tab insights
+
+Surface discarded, unloaded, or long-idle tabs as optional park candidates. Do not claim login or session-timeout detection. Do not auto-close these tabs.
 
 ## Acceptance criteria
 

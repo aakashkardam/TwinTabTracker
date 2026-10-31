@@ -1,5 +1,6 @@
 import type { InventoryTab, TabFilterKey, TabSortKey } from '../types';
 import { hostnameFromUrl } from '../url/hostname';
+import { staleReasons } from './stale';
 
 export function sortTabs(tabs: InventoryTab[], key: TabSortKey): InventoryTab[] {
   const copy = [...tabs];
@@ -33,6 +34,8 @@ export function filterTabs(
       return tabs.filter((tab) => duplicateIds.has(tab.id));
     case 'restricted':
       return tabs.filter((tab) => tab.restricted || !tab.url);
+    case 'stale':
+      return tabs.filter((tab) => staleReasons(tab).length > 0);
     default:
       return tabs;
   }

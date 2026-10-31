@@ -4,7 +4,8 @@
   padding: 22px 14px;
   text-align: center;
   color: var(--text-muted);
-  background: var(--bg-muted);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
 }
 
