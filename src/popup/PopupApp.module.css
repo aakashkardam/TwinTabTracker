@@ -1,17 +1,23 @@
-:global(html),
+:global(html) {
+  width: var(--popup-width);
+  overflow: hidden;
+}
+
 :global(body),
 :global(#root) {
-  width: var(--popup-width);
-  min-width: var(--popup-width);
-  max-width: var(--popup-width);
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .shell {
-  width: var(--popup-width);
+  width: 100%;
+  min-width: 0;
   min-height: 320px;
   max-height: 560px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   background: var(--bg);
 }
 
@@ -20,6 +26,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  min-width: 0;
   padding: 12px 14px 8px;
 }
 
@@ -39,14 +46,18 @@
 .body {
   display: grid;
   gap: 10px;
+  min-width: 0;
   padding: 0 14px 14px;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 
 .stats {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 8px;
+  min-width: 0;
 }
 
 .stat {
@@ -85,12 +96,15 @@ button.stat:focus-visible {
 
 .busy {
   margin: 0;
+  min-width: 0;
   color: var(--text-muted);
+  overflow-wrap: anywhere;
 }
 
 .parked {
   display: grid;
   gap: 8px;
+  min-width: 0;
 }
 
 .parkedHeader {
@@ -106,6 +120,8 @@ button.stat:focus-visible {
 }
 
 .parkedList {
+  min-width: 0;
+  overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--bg-elevated);

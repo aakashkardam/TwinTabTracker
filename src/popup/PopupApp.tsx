@@ -222,7 +222,7 @@ export function PopupApp() {
         {currentTab ? (
           <p className={styles.busy}>
             {canParkTab(currentTab)
-              ? `Parks “${currentTab.title || currentTab.url}” and closes it.`
+              ? 'Saves the URL locally and closes this tab.'
               : 'The current tab is a restricted browser page and cannot be parked.'}
           </p>
         ) : null}
